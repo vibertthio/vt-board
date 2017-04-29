@@ -1,0 +1,128 @@
+body {
+  margin: 0.5em;
+  padding: 1em;
+  font-family: sans-serif;
+}
+
+
+/****
+Title
+****/
+
+.title {
+  display: block;
+  height: 15em;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.logo {
+  float: left;
+  margin-right: 3em;
+  height: 15em;
+}
+
+.app-title {
+  font-size: 3.5em;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.app-title h1 {
+  width: 7em;
+  margin: 0;
+}
+
+/****
+Board
+****/
+
+.board {
+  display: block;
+  width: 50%;
+  margin: 5em auto;
+}
+
+
+.divider {
+  margin-top: 6em;
+  opacity: 0.4;
+  position: relative;
+  transform: rotate(5deg);
+
+}
+
+/****
+Comment
+****/
+
+.comment .comment-icon {
+  height: 2.5em;
+  position: relative;
+  top: 0.3em;
+}
+
+.comment .comment-username {
+  position: relative;
+  font-size: 2.5em;
+  display: inline;
+  margin: auto 0.2em;
+}
+
+.comment .comment-time {
+  margin: 0.5em 0;
+  font-style: italic;
+  color: #AAA;
+  font-size: 1em;
+}
+
+.comment .comment-content {
+  line-height: 180%;
+}
+
+
+/****
+Comment Input
+****/
+
+.comment-input .username-input {
+  width: 1em;
+}
+
+.comment-input .send-btn {
+  margin: 1em 0;
+}
+
+
+/****
+Reply
+****/
+.reply {
+  padding-left: 3em;
+}
+
+.reply .reply-icon {
+  height: 1.5em;
+  position: relative;
+  top: 0.3em;
+}
+
+.reply .reply-username {
+  display: inline;
+  position: relative;
+  font-size: 1.5em;
+  margin: auto 0.2em;
+}
+
+.reply .reply-time {
+  display: inline;
+  position: relative;
+  font-style: italic;
+  color: #AAA;
+  font-size: 0.8em;
+  padding-left: 0.4em;
+}
+
+.reply .reply-content {
+  line-height: 180%;
+}
