@@ -46,15 +46,23 @@ router.get('/', (req, res) => {
 });
 
 router.post('/reply/:id', (req, res) => {
-  const r = req.body.reply;
+  const id = parseInt(req.params.id, 10);
+  console.log(id);
+  console.log(typeof (id));
+
+  const r = req.body;
   const d = new Date();
   const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
+  console.log('check1');
+  console.log(r.userName);
+  console.log(r.content);
   const reply = {
     userName: r.userName,
     time,
     content: r.content,
   };
-  data[req.params.id].reply = data[req.params.id].reply.concat(reply);
+  console.log('check2');
+  data[id].reply = data[id].reply.concat(reply);
   res.send(reply);
 });
 

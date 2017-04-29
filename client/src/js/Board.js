@@ -41,7 +41,9 @@ class Board extends Component {
         let data = d;
         data = data.map((c) => {
           const cNew = c;
-          cNew.replying = true;
+          cNew.replying = false;
+          cNew.replyingUserName = '';
+          cNew.replyingContent = '';
           return cNew;
         });
         return this.setState({ data, commentCount });
@@ -71,6 +73,10 @@ class Board extends Component {
     })
     .then(res => res.json())
     .then((comment) => {
+      const c = comment;
+      c.replying = false;
+      c.replyingUserName = '';
+      c.replyingContent = '';
       const data = this.state.data.concat(comment);
       this.setState({
         data,
@@ -108,19 +114,43 @@ class Board extends Component {
     const inputUserName = '';
     const inputComment = '';
     const commentCount = this.state.commentCount + 1;
-
+    this.postNewComment();
     this.setState({
       inputUserName,
       inputComment,
       commentCount,
     });
+  }
 
-    this.postNewComment();
+  /**
+   * [handleEditReplyingUserName description]
+   * @param  {[type]} id    [description]
+   * @param  {[type]} input [description]
+   */
+  handleEditReplyingUserName(id, input) {
+    const data = this.state.data;
+    data[id].replyingUserName = input;
+    this.setState({
+      data,
+    });
+  }
+
+  /**
+   * [handleEditReplyingContent description]
+   * @param  {[type]} id    [description]
+   * @param  {[type]} input [description]
+   */
+  handleEditReplyingContent(id, input) {
+    const data = this.state.data;
+    data[id].replyingContent = input;
+    this.setState({
+      data,
+    });
   }
 
   /**
    * [handleToggleReplying description]
-   * @param  {[type]} id [description]
+   * @param  {number} id [description]
    */
   handleToggleReplying(id) {
     const data = this.state.data;
@@ -128,6 +158,40 @@ class Board extends Component {
     this.setState({
       data,
     });
+  }
+
+  /**
+   * [handleSendReply description]
+   * @param  {[type]} id [description]
+   */
+  handleSendReply(id) {
+    const data = this.state.data;
+    const userName = data[id].replyingUserName;
+    const content = data[id].replyingContent;
+
+    fetch(`/api/reply/${id}`, {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName,
+        content,
+      }),
+    })
+    .then(res => res.json())
+    .then((reply) => {
+      const d = this.state.data;
+      d[id].reply = d[id].reply.concat(reply);
+      data[id].replying = false;
+      data[id].replyingUserName = '';
+      data[id].replyingContent = '';
+      this.setState({
+        data: d,
+      });
+    })
+    .catch(err => console.error(err));
   }
 
   /**
@@ -142,10 +206,14 @@ class Board extends Component {
             key={`comment-${d.id}`}
             comment={d}
             handleToggleReplying={() => this.handleToggleReplying(id)}
+            handleEditReplyingUserName={(index, input) =>
+              this.handleEditReplyingUserName(index, input)}
+            handleEditReplyingContent={(index, input) =>
+              this.handleEditReplyingContent(index, input)}
+            handleSendReply={index => this.handleSendReply(index)}
           />,
         )}
 
-        <hr className="divider" />
         <CommentInput
           userName={this.state.inputUserName}
           comment={this.state.inputComment}
@@ -157,7 +225,6 @@ class Board extends Component {
     );
   }
 
-
   /**
    * [render description]
    * @return {[type]} [description]
@@ -166,7 +233,7 @@ class Board extends Component {
     return (
       <div className="App">
         <Title content="Mother Board" />
-        <hr className="divider" />
+        <hr className="divider rotate" />
         {this.board()}
         <button onClick={() => this.post()} />
       </div>

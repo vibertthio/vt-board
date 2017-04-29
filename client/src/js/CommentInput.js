@@ -10,7 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
  */
 function CommentInput(props) {
   return (
-    <div className="comment-input">
+    <div className="comment-input-block">
       <TextField
         onChange={e => props.handleEditUserName(e.target.value)}
         className="username-input"
@@ -40,11 +40,16 @@ function CommentInput(props) {
 
 
 CommentInput.propTypes = {
-  userName: PropTypes.string.isRequired,
-  comment: PropTypes.string.isRequired,
+  userName: PropTypes.string,
+  comment: PropTypes.string,
   handleEditUserName: PropTypes.func.isRequired,
   handleEditComment: PropTypes.func.isRequired,
   handleSend: PropTypes.func.isRequired,
+};
+
+CommentInput.defaultProps = {
+  userName: '',
+  comment: '',
 };
 
 export default CommentInput;
