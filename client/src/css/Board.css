@@ -93,6 +93,23 @@ Comment Input
   margin: 1em 0;
 }
 
+.reply-btn {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  outline:none;
+  margin-left: 4em;
+  margin-bottom: 4em;
+}
+
+.reply-svg {
+  opacity:0.5;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.reply-svg:hover {
+  opacity:0.8;
+}
 
 /****
 Reply

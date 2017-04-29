@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import person from './../img/person-black.svg';
+import replySvg from './../img/chat-white.svg';
 import Reply from './Reply';
 
 
@@ -27,6 +28,18 @@ function Comment(props) {
       {props.comment.reply.map(r =>
         <Reply key={r.userName + r.time} reply={r} />,
       )}
+
+      <button
+        className="reply-btn"
+        label="Reply"
+        onTouchTap={props.handleToggleReplying}
+      >
+        <img
+          className="reply-svg"
+          src={replySvg}
+          alt="reply"
+        />
+      </button>
     </div>
   );
 }
@@ -37,6 +50,7 @@ Comment.propTypes = {
     userName: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
+    replying: PropTypes.bool.isRequired,
     reply: PropTypes.arrayOf(
       PropTypes.shape({
         userName: PropTypes.string.isRequired,
@@ -45,6 +59,12 @@ Comment.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
+  handleToggleReplying: PropTypes.func,
+};
+
+const noop = () => {};
+Comment.defaultProps = {
+  handleToggleReplying: noop,
 };
 
 export default Comment;

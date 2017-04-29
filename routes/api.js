@@ -45,7 +45,20 @@ router.get('/', (req, res) => {
   res.json(data);
 });
 
-router.post('/', (req, res) => {
+router.post('/reply/:id', (req, res) => {
+  const r = req.body.reply;
+  const d = new Date();
+  const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
+  const reply = {
+    userName: r.userName,
+    time,
+    content: r.content,
+  };
+  data[req.params.id].reply = data[req.params.id].reply.concat(reply);
+  res.send(reply);
+});
+
+router.post('/comment', (req, res) => {
   const c = req.body;
   const d = new Date();
   const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;

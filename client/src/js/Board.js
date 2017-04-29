@@ -36,8 +36,14 @@ class Board extends Component {
   componentDidMount() {
     fetch('/api')
       .then(res => res.json())
-      .then((data) => {
-        const commentCount = data.length;
+      .then((d) => {
+        const commentCount = d.length;
+        let data = d;
+        data = data.map((c) => {
+          const cNew = c;
+          cNew.replying = true;
+          return cNew;
+        });
         return this.setState({ data, commentCount });
       })
       .catch(err => console.error(err));
@@ -49,9 +55,9 @@ class Board extends Component {
    * @param  {[type]} userName [description]
    * @param  {[type]} content  [description]
    */
-  post() {
+  postNewComment() {
     const { commentCount, inputUserName, inputComment } = this.state;
-    fetch('/api', {
+    fetch('/api/comment', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -109,7 +115,19 @@ class Board extends Component {
       commentCount,
     });
 
-    this.post();
+    this.postNewComment();
+  }
+
+  /**
+   * [handleToggleReplying description]
+   * @param  {[type]} id [description]
+   */
+  handleToggleReplying(id) {
+    const data = this.state.data;
+    data[id].replying = !data[id].replying;
+    this.setState({
+      data,
+    });
   }
 
   /**
@@ -119,8 +137,12 @@ class Board extends Component {
   board() {
     return (
       <div className="board">
-        {this.state.data.map(d =>
-          <Comment key={`comment-${d.id}`} comment={d} />,
+        {this.state.data.map((d, id) =>
+          <Comment
+            key={`comment-${d.id}`}
+            comment={d}
+            handleToggleReplying={() => this.handleToggleReplying(id)}
+          />,
         )}
 
         <hr className="divider" />
