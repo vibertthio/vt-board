@@ -2,8 +2,8 @@
 
 This is actually a practice of React-Express structure.
 
-![demo of front-end - 1](https://github.com/vibertthio/todo-app/blob/master/public/images/demo1.png)
-![demo of front-end - 2](https://github.com/vibertthio/todo-app/blob/master/public/images/demo2.png)
+![demo of front-end - 1](https://github.com/vibertthio/vt-board/blob/master/public/images/demo1.png)
+![demo of front-end - 2](https://github.com/vibertthio/vt-board/blob/master/public/images/demo2.png)
 
 ## Installation
 
