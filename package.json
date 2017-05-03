@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node ./bin/www",
+    "lstart": "concurrently \"npm run server\" \"npm run client\"",
     "server": "PORT=3001 node ./bin/www",
     "client": "cd client && npm run start"
   },

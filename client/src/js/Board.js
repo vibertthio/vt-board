@@ -26,7 +26,6 @@ class Board extends Component {
       commentCount: 0,
       inputUserName: '',
       inputComment: '',
-      msg: 'hello from vibert',
     };
   }
 
