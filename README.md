@@ -1,22 +1,29 @@
 # Vibert Thio's Mother Board
 
 This is actually a practice of React-Express structure.
-
+[demo](https://vt-board.now.sh/)
 ![demo of front-end - 2](https://github.com/vibertthio/vt-board/blob/master/public/images/demo2.png)
 
 ## Installation
 
 ```
 git clone https://github.com/vibertthio/vt-board
-cd todo-app
+cd vt-board
 npm install
 ```
 
 ## Usage
 
+To run it in local, you can use the command :
 ```
 npm run start
 ```
+
+If you want to run the application in developing mode, you can use the command :
+```
+npm run dev
+```
+It would start the dev servers of both server side and client side of the app.
 
 ## Contributing
 
