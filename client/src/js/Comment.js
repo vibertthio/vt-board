@@ -48,6 +48,7 @@ function Comment(props) {
         handleEditUserName={input => props.handleEditReplyingUserName(props.comment.id, input)}
         handleEditComment={input => props.handleEditReplyingContent(props.comment.id, input)}
         handleSend={() => props.handleSendReply(props.comment.id)}
+        popAlertDialog={msg => props.popAlertDialog(msg)}
       />
       }
       <hr className="divider rotate" />
@@ -77,6 +78,7 @@ Comment.propTypes = {
   handleEditReplyingUserName: PropTypes.func,
   handleEditReplyingContent: PropTypes.func,
   handleSendReply: PropTypes.func,
+  popAlertDialog: PropTypes.func.isRequired,
 };
 
 const noop = () => {};

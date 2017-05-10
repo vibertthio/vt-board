@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import './../css/Board.css';
 
 import CommentInput from './CommentInput';
@@ -26,6 +28,8 @@ class Board extends Component {
       commentCount: 0,
       inputUserName: '',
       inputComment: '',
+      alert: false,
+      alertMsg: '',
     };
   }
 
@@ -201,6 +205,27 @@ class Board extends Component {
   }
 
   /**
+   * [popAlertDialog description]
+   * @param  {[type]} msg [description]
+   */
+  popAlertDialog(msg) {
+    this.setState({
+      alert: true,
+      alertMsg: msg,
+    });
+  }
+
+  /**
+   * [closeAlertDialog description]
+   */
+  closeAlertDialog() {
+    this.setState({
+      alert: false,
+      alertMsg: '',
+    });
+  }
+
+  /**
    * [board description]
    * @return {element} [description]
    */
@@ -217,6 +242,7 @@ class Board extends Component {
             handleEditReplyingContent={(index, input) =>
               this.handleEditReplyingContent(index, input)}
             handleSendReply={index => this.handleSendReply(index)}
+            popAlertDialog={msg => this.popAlertDialog(msg)}
           />,
         )}
 
@@ -226,8 +252,32 @@ class Board extends Component {
           handleEditUserName={input => this.handleEditUserName(input)}
           handleEditComment={input => this.handleEditComment(input)}
           handleSend={() => this.handleSend()}
+          popAlertDialog={msg => this.popAlertDialog(msg)}
         />
       </div>
+    );
+  }
+
+  /**
+   * [alert description]
+   * @return {[type]} [description]
+   */
+  popAlert() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary
+        onTouchTap={() => this.closeAlertDialog()}
+      />,
+    ];
+    return (
+      <Dialog
+        title={this.state.alertMsg}
+        actions={actions}
+        modal={false}
+        open={this.state.alert}
+        onRequestClose={() => this.closeAlertDialog()}
+      />
     );
   }
 
@@ -241,6 +291,7 @@ class Board extends Component {
         <Title content="Mother Board" />
         <hr className="divider rotate" />
         {this.board()}
+        {this.popAlert()}
       </div>
     );
   }

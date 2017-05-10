@@ -32,7 +32,15 @@ function CommentInput(props) {
         className="send-btn"
         label="Send"
         primary
-        onTouchTap={() => props.handleSend()}
+        onTouchTap={() => {
+          if (props.userName === '') {
+            props.popAlertDialog('Please insert user name!');
+          } else if (props.comment === '') {
+            props.popAlertDialog('Please insert comment!');
+          } else {
+            props.handleSend();
+          }
+        }}
       />
     </div>
   );
@@ -45,6 +53,7 @@ CommentInput.propTypes = {
   handleEditUserName: PropTypes.func.isRequired,
   handleEditComment: PropTypes.func.isRequired,
   handleSend: PropTypes.func.isRequired,
+  popAlertDialog: PropTypes.func.isRequired,
 };
 
 CommentInput.defaultProps = {
