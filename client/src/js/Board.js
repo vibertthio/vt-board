@@ -58,6 +58,9 @@ class Board extends Component {
    */
   postNewComment() {
     const { commentCount, inputUserName, inputComment } = this.state;
+    const d = new Date();
+    const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
+    console.log(time);
     fetch('/api/comment', {
       method: 'post',
       headers: {
@@ -68,6 +71,7 @@ class Board extends Component {
         commentCount,
         inputUserName,
         inputComment,
+        time,
       }),
     })
     .then(res => res.json())
@@ -167,6 +171,8 @@ class Board extends Component {
     const data = this.state.data;
     const userName = data[id].replyingUserName;
     const content = data[id].replyingContent;
+    const d = new Date();
+    const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
 
     fetch(`/api/reply/${id}`, {
       method: 'post',
@@ -177,15 +183,16 @@ class Board extends Component {
       body: JSON.stringify({
         userName,
         content,
+        time,
       }),
     })
     .then(res => res.json())
     .then((reply) => {
-      const d = this.state.data;
-      d[id].reply = d[id].reply.concat(reply);
-      data[id].replying = false;
-      data[id].replyingUserName = '';
-      data[id].replyingContent = '';
+      const da = this.state.data;
+      da[id].reply = da[id].reply.concat(reply);
+      da[id].replying = false;
+      da[id].replyingUserName = '';
+      da[id].replyingContent = '';
       this.setState({
         data: d,
       });
@@ -234,7 +241,6 @@ class Board extends Component {
         <Title content="Mother Board" />
         <hr className="divider rotate" />
         {this.board()}
-        <button onClick={() => this.post()} />
       </div>
     );
   }

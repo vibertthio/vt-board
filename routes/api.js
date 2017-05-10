@@ -51,14 +51,13 @@ router.post('/reply/:id', (req, res) => {
   console.log(typeof (id));
 
   const r = req.body;
-  const d = new Date();
-  const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
   console.log('check1');
   console.log(r.userName);
   console.log(r.content);
+  console.log(r.time);
   const reply = {
     userName: r.userName,
-    time,
+    time: r.time,
     content: r.content,
   };
   console.log('check2');
@@ -68,12 +67,13 @@ router.post('/reply/:id', (req, res) => {
 
 router.post('/comment', (req, res) => {
   const c = req.body;
-  const d = new Date();
-  const time = `${d.getYear() + 1900}/${d.getMonth() + 1}/${d.getDate()}, ${d.getHours()}:${(d.getMinutes() > 10) ? '' : '0'}${d.getMinutes()}`;
+  console.log(c.inputUserName);
+  console.log(c.inputComment);
+  console.log(c.time);
   const comment = {
     id: c.commentCount,
     userName: c.inputUserName,
-    time,
+    time: c.time,
     content: c.inputComment,
     reply: [],
   };
