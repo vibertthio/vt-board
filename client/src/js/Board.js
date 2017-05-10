@@ -198,7 +198,7 @@ class Board extends Component {
       da[id].replyingUserName = '';
       da[id].replyingContent = '';
       this.setState({
-        data: d,
+        data: da,
       });
     })
     .catch(err => console.error(err));

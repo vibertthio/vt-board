@@ -17,7 +17,11 @@ function Reply(props) {
       />
       <h2 className="reply-username">{props.reply.userName}</h2>
       <p className="reply-time">submitted {props.reply.time}</p>
-      <p className="reply-content">{props.reply.content}</p>
+      <p className="reply-content">
+        {props.reply.content.split('\n').map((item, index) =>
+          <span key={item + index.toString()}>{item}<br /></span>,
+        )}
+      </p>
     </div>
   );
 }
